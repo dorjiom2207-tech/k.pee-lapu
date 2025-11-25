@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinley’s Magical Birthday 💕</title>
+<style>
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #fde2f3, #e4f1fe, #fff0f5);
+    background-size: 400% 400%;
+    animation: gradientShift 10s ease infinite;
+    font-family: 'Poppins', sans-serif;
+    color: #4a4a4a;
+    text-align: center;
+    padding: 60px 20px;
+    overflow: hidden;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  h1 {
+    font-size: 2.5em;
+    color: #8b5cf6;
+    text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
+    margin-bottom: 20px;
+  }
+
+  button {
+    background-color: #f9a8d4;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 1em;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+  }
+
+  #giftMessage {
+    display: none;
+    font-size: 1.2em;
+    line-height: 1.8em;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    color: #5b4b8a;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.1);
+    animation: fadeIn 2s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .confetti, .butterfly, .cakeEmoji {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .sparkle {
+    position: fixed;
+    color: #f9a8d4;
+    animation: floatUp 3s linear infinite;
+  }
+
+  @keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-150px); opacity: 0; }
+  }
+
+  #musicControl {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(255,255,255,0.7);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.4em;
+    color: #8b5cf6;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  }
+
+  #musicControl:hover {
+    background-color: rgba(255,255,255,0.9);
+  }
+</style>
+</head>
+<body>
+<h1>🎀 Happy Birthday, Kinley! 🌷</h1>
+<button onclick="showGift()">Open Your Little Surprise ✨</button>
+
+<div id="giftMessage"></div>
+
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_13db7a7fbb.mp3?filename=spring-garden-14509.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicControl" onclick="toggleMusic()">🔈</button>
+
+<script>
+let musicPlaying = false;
+const bgMusic = document.getElementById('bgMusic');
+const musicControl = document.getElementById('musicControl');
+
+function toggleMusic() {
+  if (musicPlaying) {
+    bgMusic.pause();
+    musicControl.textContent = '🔈';
+  } else {
+    bgMusic.play();
+    musicControl.textContent = '🎵';
+  }
+  musicPlaying = !musicPlaying;
+}
+
+function showGift() {
+  document.getElementById('giftMessage').style.display = 'block';
+  bgMusic.play();
+  musicPlaying = true;
+  musicControl.textContent = '🎵';
+  createConfetti(100);
+  createButterflies(20);
+  createCakes(15);
+  createSparkles(20);
+  typeGiftMessage("🌸 Dear Kinley,<br><br>On your special day, may your heart be light, your laughter easy, and your world full of color. 🌷<br>🍫 Chocolate Cake & 🍓 Strawberry Cake just for you!<br><br>Have a maniac, savage, absolutely legendary year ahead! 💥💫<br><br>Keep shining, keep smiling, and never forget how wonderful you are. 💖<br><br>Happy Birthday, Kinley! 🎂🦋✨");
+}
+
+function typeGiftMessage(message) {
+  const container = document.getElementById('giftMessage');
+  container.innerHTML = "";
+  let i = 0;
+  const interval = setInterval(() => {
+    container.innerHTML += message.charAt(i);
+    i++;
+    if (i >= message.length) clearInterval(interval);
+  }, 35);
+}
+
+function createConfetti(count) {
+  for (let i = 0; i < count; i++) {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.width = confetti.style.height = Math.random() * 8 + 4 + 'px';
+    confetti.style.backgroundColor = ['#ffb6c1','#f9a8d4','#c7d2fe','#fde68a','#a7f3d0'][Math.floor(Math.random()*5)];
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.top = '-10px';
+    document.body.appendChild(confetti);
+
+    const fallDuration = Math.random() * 3 + 4;
+    const moveX = (Math.random() - 0.5) * 100;
+    confetti.animate([
+      { transform: 'translate(0, 0)', opacity: 1 },
+      { transform: `translate(${moveX}px, ${window.innerHeight + 20}px)`, opacity: 0.8 }
+    ], { duration: fallDuration * 1000, iterations: 1, easing: 'ease-in' })
+    .onfinish = () => confetti.remove();
+  }
+}
+
+function createButterflies(count) {
+  for (let i = 0; i < count; i++) {
+    const butterfly = document.createElement('div');
+    butterfly.classList.add('butterfly');
+    butterfly.textContent = '🦋';
+    butterfly.style.left = Math.random() * window.innerWidth + 'px';
+    butterfly.style.bottom = '-20px';
+    document.body.appendChild(butterfly);
+
+    const flyDuration = Math.random() * 5 + 5;
+    const driftX = (Math.random() - 0.5) * 200;
+    butterfly.animate([
+      { transform: 'translate(0, 0)', opacity: 1 },
+      { transform: `translate(${driftX}px, -${window.innerHeight + 100}px)`, opacity: 0 }
+    ], { duration: flyDuration * 1000, iterations: 1, easing: 'ease-out' })
+    .onfinish = () => butterfly.remove();
+  }
+}
+
+function createCakes(count) {
+  const cakeEmojis = ['🍫','🍓'];
+  for (let i = 0; i < count; i++) {
+    const cake = document.createElement('div');
+    cake.classList.add('cakeEmoji');
+    cake.textContent = cakeEmojis[Math.floor(Math.random()*cakeEmojis.length)];
+    cake.style.left = Math.random() * window.innerWidth + 'px';
+    cake.style.bottom = '-50px';
+    cake.style.fontSize = (Math.random() * 30 + 20) + 'px';
+    document.body.appendChild(cake);
+
+    // Animate cakes manually
+    const duration = Math.random() * 5000 + 6000; // 6-11s
+    let startTime = null;
+    const startX = parseFloat(cake.style.left);
+    const amplitude = Math.random() * 50 + 30; // left-right bounce
+    const direction = Math.random() > 0.5 ? 1 : -1;
+
+    function animateCake(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = (timestamp - startTime) / duration;
+      const y = -progress * (window.innerHeight + 100);
+      const x = startX + Math.sin(progress * Math.PI * 2) * amplitude * direction;
+      cake.style.transform = `translate(${x - startX}px, ${y}px) rotate(${progress*360}deg)`;
+      if (progress < 1) {
+        requestAnimationFrame(animateCake);
+      } else {
+        cake.remove();
+      }
+    }
+    requestAnimationFrame(animateCake);
+  }
+}
+
+function createSparkles(count) {
+  for (let i = 0; i < count; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    sparkle.textContent = '✨';
+    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+    sparkle.style.top = Math.random() * window.innerHeight + 'px';
+    sparkle.style.fontSize = Math.random() * 18 + 10 + 'px';
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 3000);
+  }
+}
+</script>
+</body>
+</html>
